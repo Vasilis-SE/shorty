@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from src.api.services.shortener import Shortener_Service
+from src.exceptions.validation import Invalid_Api_Provider
 
 
 class Shortener_Controller():
@@ -8,17 +9,22 @@ class Shortener_Controller():
         self._service = Shortener_Service()
 
     def shorten_url(self):
-        payload = request.json
-        provider = payload['provider'].lower()
+        try:
+            payload = request.json
+            provider = provider.lower()
 
-        if provider == 'bitly':
-            self._service.shorten_url_bitly(payload)
-        elif provider == 'tinyurl':
-            self._service.shorten_url_tinyurl(payload)
-        else: 
-            return jsonify({
-                'status': False,
-                'error': 'Invalid provider ' + payload['provider'] + ' given...'
-            })
+            # Check if the provider given is valid
+            if not self._service.is_valid_provider(provider):
+                raise Invalid_Api_Provider()
 
-        return jsonify(payload)
+            # if provider == 'bitly':
+            #     response = self._service.shorten_url_bitly(payload)
+            # elif provider == 'tinyurl':
+            #     response = self._service.shorten_url_tinyurl(payload)
+
+            return jsonify(response)
+
+        except Exception as ex:
+            return jsonify(ex)
+
+
