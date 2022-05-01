@@ -1,10 +1,11 @@
 from flask import request, jsonify
+from src.api.controllers.base_controller import Base_Controller
 from src.api.services.shortener import Shortener_Service
 from src.exceptions.validation import Invalid_Api_Provider
 from src.helpers.providers import Shortening_Providers
 
 
-class Shortener_Controller():
+class Shortener_Controller(Base_Controller):
 
     def __init__(self):
         self._service = Shortener_Service()
@@ -18,9 +19,9 @@ class Shortener_Controller():
             if not self._service.is_valid_provider(provider):
                 raise Invalid_Api_Provider()
 
-            method_to_call = getattr(self._service, Shortening_Providers[payload['provider'].upper()].value)
-            response = method_to_call(payload)
+            shortening_func = getattr(self._service, Shortening_Providers[payload['provider'].upper()].value)
+            response = shortening_func(payload)
 
-            return jsonify(response)
+            return self.send(response)
         except Exception as ex:
-            return jsonify(ex.__dict__)
+            return self.send(ex.__dict__)
