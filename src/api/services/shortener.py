@@ -1,16 +1,19 @@
 import validators
 
 from src.exceptions.validation import Invalid_Type, Invalid_Url, Missing_Property
+from src.helpers.providers import Shortening_Providers
 
 
 class Shortener_Service():
 
+    # Checks if the provider given is a valid one and is supported
     def is_valid_provider(self, provider):
-        provider = provider.lower()
-        if provider == 'bitly' or provider == 'tinyurl':
+        if provider in Shortening_Providers.__members__:
             return True
+
         return False
 
+    # Bussines logic for bitly API shortening url provider
     def shorten_url_bitly(self, payload):
         # Sanitize data, check their validity
         if not 'url' in payload:
@@ -24,6 +27,7 @@ class Shortener_Service():
 
         # TODO: call appropriate model
 
+    # Bussines logic for tinyurl API shortening url provider
     def shorten_url_tinyurl(self, payload):
         # Sanitize data, check their validity
         if not 'url' in payload:
