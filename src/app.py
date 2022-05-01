@@ -2,7 +2,7 @@ from flask import Flask
 from dotenv import dotenv_values
 
 # Import all route files
-from src.api.routes.short_links import short_links_routes
+from src.api.routes.shortener import shortener_routes
 from src.api.routes.greetings import greetings
 
 config = dotenv_values("./config/.env")
@@ -33,8 +33,8 @@ class Server():
 
     # Set all routes for the server
     def configure_routes(self):
-        self.app.register_blueprint(greetings, url_prefix='/api/v1/greetings')
-        self.app.register_blueprint(short_links_routes, url_prefix='/api/v1')
+        self.app.register_blueprint(greetings, url_prefix='/api/v1')
+        self.app.register_blueprint(shortener_routes, url_prefix='/api/v1')
 
     # Run server
     def run(self):
