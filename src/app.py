@@ -1,11 +1,12 @@
+import os
 from flask import Flask
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 
 # Import all route files
 from src.api.routes.shortener import shortener_routes
 from src.api.routes.greetings import greetings
 
-config = dotenv_values("./config/.env")
+load_dotenv("./config/.env")
 
 
 class Server():
@@ -38,4 +39,4 @@ class Server():
 
     # Run server
     def run(self):
-        self.app.run(host='0.0.0.0', port=config['API_PORT'], debug=True)
+        self.app.run(host='0.0.0.0', port=os.getenv('API_PORT'), debug=True)
