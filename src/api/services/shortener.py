@@ -1,4 +1,5 @@
 import validators
+from src.api.models.tinyurl_shortener import Tinyurl_Shortener
 from src.api.models.bitly_shortener import Bitly_Shortener
 
 from src.exceptions.validation import Invalid_Type, Invalid_Url, Missing_Property
@@ -45,4 +46,9 @@ class Shortener_Service():
         if not validators.url(payload['url']):
             raise Invalid_Url()
 
-        # TODO: call appropriate model
+        _model = Tinyurl_Shortener(
+            url=payload['url'], 
+            provider=payload['provider'])
+        shortened_url = _model.shorten_url()
+
+        return {'url': payload['url'], 'link': shortened_url, 'http_code': 200}

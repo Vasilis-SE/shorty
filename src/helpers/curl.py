@@ -8,7 +8,7 @@ class Curl_Helper():
         pass
 
     def get(self, url, **header):
-        response = requests.get("GET", url, headers=header)
+        response = requests.request("GET", url, headers=header)
         return response.text
 
     def post(self, url, payload, **header):
