@@ -32,7 +32,7 @@ class Shortener_Service():
             provider=payload['provider'])
         shortened_url = _model.shorten_url()
 
-        return {'url': payload['url'], 'link': shortened_url, 'http_code': 200}
+        return shortened_url
 
     # Bussines logic for tinyurl API shortening url provider
     def shorten_url_tinyurl(self, payload):
@@ -51,4 +51,4 @@ class Shortener_Service():
             provider=payload['provider'])
         shortened_url = _model.shorten_url()
 
-        return {'url': payload['url'], 'link': shortened_url, 'http_code': 200}
+        return shortened_url

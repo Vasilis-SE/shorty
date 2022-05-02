@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
+from flasgger import Swagger
 
 # Import all route files
 from src.api.routes.shortener import shortener_routes
@@ -20,6 +21,7 @@ class Server():
         self.app = Flask(__name__)
         self.configure_settings()
         self.configure_routes()
+        self.configure_openapi()
 
     # Set settings for the server
     def configure_settings(self):
@@ -36,6 +38,10 @@ class Server():
     def configure_routes(self):
         self.app.register_blueprint(greetings, url_prefix='/api/v1')
         self.app.register_blueprint(shortener_routes, url_prefix='/api/v1')
+        
+    # Configures open api to run on <domain>:3000/apidocs
+    def configure_openapi(self):
+        swag = Swagger(self.app)
 
     # Run server
     def run(self):

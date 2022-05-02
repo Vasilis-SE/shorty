@@ -7,7 +7,7 @@ class Tinyurl_Shortener(Shortener_Model):
     def __init__(self, url, provider):
         super().__init__(url, provider)
 
-    # Implement shortening of bitly provider
+    # Implement shortening of tinyurl provider
     def shorten_url(self):
         try:
             curl = Curl_Helper()

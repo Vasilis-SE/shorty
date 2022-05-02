@@ -1,0 +1,50 @@
+Endpoint used by the application's API to shorten long URLs by a specific provider.
+This is a POST method in which you need to provide a url to shorten it. You can define also the provider to do so but it is not necessary.
+---
+tags:
+  - Shortener
+definitions:
+  response:
+    type: object
+    properties:
+      url:
+        $ref: "#/definitions/url"
+      link:
+        $ref: "#/definitions/link"
+  link:
+    type: string
+    description: Shortened URL that the provider has returned.
+  url:
+    type: string
+    description: Long un shortened URL provided by the user.
+  provider:
+    type: string
+    description: The provider to specify with which to shorten the URL.
+
+parameters:
+- in: "body"
+  name: "body"
+  description: "The payload needed to shorten a URL."
+  required: "true"
+  schema:
+    type: "object"
+    properties:
+      url:
+        $ref: "#/definitions/url"
+      provider:
+        $ref: "#/definitions/provider"
+
+responses:
+  200:
+    description: Response object containing the initial long URL and the shortened one.
+    schema:
+      $ref: "#/definitions/response"
+    properties:
+      "link":
+        $ref: "#/definitions/link"
+      "url":
+        $ref: "#/definitions/url"
+  400:
+    description: Bad request. The user requested the resource, but the given data are invalid.
+  404:
+    description: Could not find a specific data from the request that is necessary for the process.
