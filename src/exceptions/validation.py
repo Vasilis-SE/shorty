@@ -26,6 +26,6 @@ class Invalid_Url(Exception):
 
 class Invalid_Api_Provider(Exception):
     def __init__(self, **kwargs):
-        self.message = kwargs["message"] if "message" in kwargs else "Error occurred, invalid privider given..."
+        self.message = kwargs["message"] if "message" in kwargs else "Error occurred, invalid provider given..."
         self.http_code = HTTP_Codes.BAD_REQUEST.value
         super(Invalid_Api_Provider, self).__init__(self.__dict__)

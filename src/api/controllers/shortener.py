@@ -15,10 +15,16 @@ class Shortener_Controller(Base_Controller):
             payload = request.json
             provider = payload['provider'].upper() if 'provider' in payload else ''
 
-            # Check if the provider given is valid
+            # If no provider property is passed then call the default shortener (tinyurl)
+            if provider == '':
+                response = self._service.shorten_url_tinyurl(payload)
+                return self.send(response)
+
+            # If there is a provider property but its not on the list throw Invalid_Api_Provider exception
             if not self._service.is_valid_provider(provider):
                 raise Invalid_Api_Provider()
 
+            # If there is a provider & is valid call the appropriate service from the enum name
             shortening_func = getattr(self._service, Shortening_Providers[payload['provider'].upper()].value)
             response = shortening_func(payload)
 
