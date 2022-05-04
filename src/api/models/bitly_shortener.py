@@ -14,4 +14,4 @@ class Bitly_Shortener(Shortener_Model):
             shortened_url = bitly.shorten(self.url)
             return shortened_url
         except BitlyError as ex:
-            return self.url
+            return False

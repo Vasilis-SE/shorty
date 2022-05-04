@@ -15,4 +15,4 @@ class Tinyurl_Shortener(Shortener_Model):
                 url="https://tinyurl.com/api-create.php?url=" + self.url)
             return shortened_url
         except Exception as ex:
-            return self.url
+            return False
