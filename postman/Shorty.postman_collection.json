@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "f59d2991-d31c-4637-8f7a-06bd7f089c45",
+		"name": "Shorty",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Shorten URL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://google.com\",\r\n    \"provider\": \"tinyurl\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/shortlinks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"shortlinks"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
