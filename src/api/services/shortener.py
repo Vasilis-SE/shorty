@@ -7,6 +7,11 @@ from src.helpers.providers import Shortening_Providers
 
 
 class Shortener_Service():
+    """ Services class part of the bussines layer of the application that contains
+        all the necessary services for the shortening domain. Services are responsible
+        for validating the input given from the request, sanitizing it and calling the
+        appropriate Model class method(-s) that will then shorten the url.
+    """
 
     # Checks if the provider given is a valid one and is supported
     def is_valid_provider(self, provider):
@@ -28,7 +33,7 @@ class Shortener_Service():
             raise Invalid_Url()
 
         _model = Bitly_Shortener(
-            url=payload['url'], 
+            url=payload['url'],
             provider=payload['provider'])
         shortened_url = _model.shorten_url()
 
@@ -47,7 +52,7 @@ class Shortener_Service():
             raise Invalid_Url()
 
         _model = Tinyurl_Shortener(
-            url=payload['url'], 
+            url=payload['url'],
             provider=payload['provider'])
         shortened_url = _model.shorten_url()
 

@@ -5,12 +5,20 @@ from flasgger import Swagger
 
 # Import all route files
 from src.api.routes.shortener import shortener_routes
-from src.api.routes.greetings import greetings
 
 load_dotenv("./config/.env")
 
 
 class Server():
+    """ Main class that initializes the server that will run and also Flask to
+        handle requests. It starts creates a new Flask instance then sets up its
+        settings, then sets up all the routes that the API will listen to, then sets up
+        the OpenAPI documentation and finally runs the server.
+
+        Properties: 
+            app         The application instance.
+            settings    External setting that can be passed upon initialization to replace the default ones.
+    """
 
     def __init__(self, **settings):
         self.settings = settings
@@ -36,9 +44,8 @@ class Server():
 
     # Set all routes for the server
     def configure_routes(self):
-        self.app.register_blueprint(greetings, url_prefix='/api/v1')
         self.app.register_blueprint(shortener_routes, url_prefix='/api/v1')
-        
+
     # Configures open api to run on <domain>:3000/apidocs
     def configure_openapi(self):
         swag = Swagger(self.app)

@@ -8,6 +8,14 @@ from src.helpers.providers import Shortening_Providers
 
 
 class Shortener_Controller(Base_Controller):
+    """ Controller class for calling the appropriate service for 
+        shortening a url. It also handles the response back to the 
+        caller. Controller classes are part of the business logic 
+        of the application. 
+
+        Properties:
+            _service    The service that is bound with this particular controller. 
+    """
 
     def __init__(self):
         self._service = Shortener_Service()
